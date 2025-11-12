@@ -14,7 +14,7 @@
 
 1. **영화 등록**
     - 사용자가 **영화 제목, 감독 이름, 장르**를 입력하여 새로운 영화를 등록합니다.
-    - 장르는 아래 목록에서 번호로 선택합니다.
+    - 장르는 아래 목록에서 ID를 선택합니다.
         ```bash
          === 장르 선택 ===
          1. 액션
@@ -69,9 +69,12 @@
 | 평점    | 0.5 단위의 입력이 아닌 경우     | [ERROR] 평점은 0.5 단위로 입력해야 합니다. |
 |       | 숫자 외 값 입력             | [ERROR] 평점은 숫자 입력만 가능합니다.     |
 |       | 0.0~5.0 범위의 입력이 아닌 경우 | [ERROR] 평점은 0.0~5.0 범위여야 합니다. |
+|       | 공백 입력                 | [ERROR] 평점을 입력해야 합니다.         |
 | 감상평   | 공백 입력                 | [ERROR] 감상평을 입력해야 합니다.        |
 | 영화 ID | 존재하지 않는 ID 입력         | [ERROR] 해당 ID의 영화가 존재하지 않습니다. |
-| 장르 선택 | 1~7 외 숫자 입력           | [ERROR] 해당 번호의 장르는 존재하지 않습니다. |
+|       | 공백 입력                 | [ERROR] 영화 ID를 입력해야 합니다.      |
+| 장르 선택 | 1~7 외 숫자 입력           | [ERROR] 해당 ID의 장르는 존재하지 않습니다. |
+|       | 공백 입력                 | [ERROR] 장르 ID를 선택해야 합니다.      |
 
 ---
 
@@ -90,9 +93,13 @@
 
 | 테스트 항목                    | 기대 결과                       |
 |---------------------------|-----------------------------|
-| 잘못된 장르 번호 입력의 경우          | IllegalArgumentException 발생 |
+| 잘못된 장르 ID 입력의 경우          | IllegalArgumentException 발생 |
+| 장르 ID를 공백으로 입력한 경우        | IllegalArgumentException 발생 |
 | 0.0~5.0 범위를 벗어난 평점 입력의 경우 | IllegalArgumentException 발생 |
 | 0.5 단위가 아닌 평점 입력의 경우      | IllegalArgumentException 발생 |
+| 평점을 공백으로 입력한 경우           | IllegalArgumentException 발생 |
 | 영화 제목을 공백으로 입력한 경우        | IllegalArgumentException 발생 |
+| 감상평을 공백으로 입력한 경우          | IllegalArgumentException 발생 |
 | 기존 등록한 영화의 제목과 중복된 경우     | IllegalArgumentException 발생 |
 | 존재하지 않는 영화의 ID를 입력한 경우    | IllegalArgumentException 발생 |
+| 영화 ID를 공백으로 입력한 경우        | IllegalArgumentException 발생 |
