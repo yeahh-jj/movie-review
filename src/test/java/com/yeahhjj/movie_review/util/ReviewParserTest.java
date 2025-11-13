@@ -8,14 +8,26 @@ import org.junit.jupiter.api.Test;
 public class ReviewParserTest {
     @Test
     void 영화_ID_문자를_숫자로_제대로_파싱한다() {
-        assertThat(ReviewParser.parseMovieId("1")).isInstanceOf(Integer.class);
+        assertThat(ReviewParser.checkMovieId("1")).isInstanceOf(Integer.class);
     }
 
     @Test
     void 리뷰를_작성하려는_영화_ID를_공백으로_입력하면_예외가_발생한다() {
-        assertThatThrownBy(() -> ReviewParser.parseMovieId(" "))
+        assertThatThrownBy(() -> ReviewParser.checkMovieId(" "))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 영화 ID를 입력해야 합니다.");
+    }
+
+    @Test
+    void 리뷰를_작성하려는_영화_ID를_숫자_외_입력하면_예외가_발생한다() {
+        assertThatThrownBy(() -> ReviewParser.checkMovieId("a"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR] 영화 ID는 숫자만 입력해야 합니다.");
+    }
+
+    @Test
+    void 평점_문자열을_숫자로_제대로_파싱한다() {
+        assertThat(ReviewParser.checkRating("0.5")).isInstanceOf(Double.class);
     }
 
     @Test
