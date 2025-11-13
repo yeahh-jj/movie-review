@@ -1,5 +1,7 @@
 package com.yeahhjj.movie_review.domain;
 
+import java.util.Arrays;
+
 public enum Genre {
     ACTION(1, "액션"),
     COMEDY(2, "코미디"),
@@ -22,6 +24,13 @@ public enum Genre {
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    public static Genre getGenre(int id) {
+        return Arrays.stream(values())
+                .filter(g -> g.getGenreId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
 }
