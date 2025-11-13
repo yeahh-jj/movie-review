@@ -1,13 +1,26 @@
 package com.yeahhjj.movie_review.util;
 
 public class ReviewParser {
-    public static void isBlankRating(String rating) {
+    public static int parseMovieId(String movieId) {
+        try {
+            return Integer.parseInt(movieId);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[ERROR] 영화 ID를 입력해야 합니다.");
+        }
+    }
+
+    public static void checkRating(String rating) {
+        isBlankRating(rating);
+        parseRating(rating);
+    }
+
+    private static void isBlankRating(String rating) {
         if (rating == null || rating.isBlank()) {
             throw new IllegalArgumentException("[ERROR] 평점을 입력해야 합니다.");
         }
     }
 
-    public static Double parseRating(String rating) {
+    private static Double parseRating(String rating) {
         try {
             return Double.parseDouble(rating.trim());
         } catch (NumberFormatException e) {
