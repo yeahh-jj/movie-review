@@ -66,6 +66,7 @@
 |-------|-----------------------|-------------------------------|
 | 영화 제목 | 공백 입력                 | [ERROR] 영화 제목은 비워둘 수 없습니다.    |
 |       | 중복된 영화 제목 입력          | [ERROR] 이미 등록된 영화입니다.         |
+| 영화 감독 | 공백 입력                 | [ERROR] 영화 감독을 입력해야 합니다.      |
 | 평점    | 0.5 단위의 입력이 아닌 경우     | [ERROR] 평점은 0.5 단위로 입력해야 합니다. |
 |       | 숫자 외 값 입력             | [ERROR] 평점은 숫자 입력만 가능합니다.     |
 |       | 0.0~5.0 범위의 입력이 아닌 경우 | [ERROR] 평점은 0.0~5.0 범위여야 합니다. |
@@ -99,6 +100,7 @@
 | 0.5 단위가 아닌 평점 입력의 경우      | IllegalArgumentException 발생 |
 | 평점을 공백으로 입력한 경우           | IllegalArgumentException 발생 |
 | 영화 제목을 공백으로 입력한 경우        | IllegalArgumentException 발생 |
+| 영화 감독을 공백으로 입력한 경우        | IllegalArgumentException 발생 |
 | 감상평을 공백으로 입력한 경우          | IllegalArgumentException 발생 |
 | 기존 등록한 영화의 제목과 중복된 경우     | IllegalArgumentException 발생 |
 | 존재하지 않는 영화의 ID를 입력한 경우    | IllegalArgumentException 발생 |
