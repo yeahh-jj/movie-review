@@ -12,14 +12,14 @@ public class MovieValidator {
                 throw new IllegalArgumentException("[ERROR] 이미 등록된 영화입니다.");
             }
         }
-
     }
 
-    public static void validateGenreId(String genreId) {
+    public static int validateGenreId(String genreId) {
         int id = MovieParser.checkGenreId(genreId);
         if (Genre.getGenre(id) == null) {
             throw new IllegalArgumentException("[ERROR] 해당 ID의 장르는 존재하지 않습니다.");
         }
+        return id;
     }
 
 }
