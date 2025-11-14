@@ -10,4 +10,8 @@ public class Movie {
         this.genre = genre;
         this.director = director;
     }
+
+    public String getTitle() {
+        return title;
+    }
 }
