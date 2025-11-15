@@ -24,22 +24,21 @@ public class ReviewValidatorTest {
         service.registerMovie("기생충", "3", "봉준호");
         service.registerMovie("미션임파서블", "1", "브라이언 드 팔마");
 
-        Movie movie = ReviewValidator.validateMovieId("1", service.getMovies());
-        assertThat(movie.getTitle()).isEqualTo("기생충");
-        assertThat(movie.getGenre().getGenreId()).isEqualTo(3);
-        assertThat(movie.getDirector()).isEqualTo("봉준호");
+        int movieId = ReviewValidator.validateMovieId("1", service.getMovies());
+
+        assertThat(movieId).isEqualTo(1);
     }
 
     @Test
     void 평점_범위를_벗어난_숫자를_입력할_경우_예외가_발생한다() {
-        assertThatThrownBy(() -> ReviewValidator.validateRating(6.5))
+        assertThatThrownBy(() -> ReviewValidator.validateRating("6.5"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 평점은 0.0~5.0 범위여야 합니다.");
     }
 
     @Test
     void 평점을_0_5_단위의_입력이_아닐_경우_예외가_발생한다() {
-        assertThatThrownBy(() -> ReviewValidator.validateRating(2.1))
+        assertThatThrownBy(() -> ReviewValidator.validateRating("2.1"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 평점은 0.5 단위로 입력해야 합니다.");
     }

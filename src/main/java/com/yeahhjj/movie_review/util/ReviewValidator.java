@@ -7,19 +7,21 @@ public class ReviewValidator {
     private final static double MIN = 0.0;
     private final static double MAX = 5.0;
 
-    public static Movie validateMovieId(String movieId, List<Movie> movies) {
+    public static int validateMovieId(String movieId, List<Movie> movies) {
         int index = ReviewParser.checkMovieId(movieId) - 1;
 
         if (index < 0 || index >= movies.size()) {
             throw new IllegalArgumentException("[ERROR] 해당 ID의 영화가 존재하지 않습니다.");
         }
 
-        return movies.get(index);
+        return ReviewParser.checkMovieId(movieId);
     }
 
-    public static void validateRating(double rating) {
-        rangeOfRating(rating);
-        halfRating(rating);
+    public static double validateRating(String rating) {
+        double reviewRating = ReviewParser.checkRating(rating);
+        rangeOfRating(reviewRating);
+        halfRating(reviewRating);
+        return reviewRating;
     }
 
     private static void rangeOfRating(double rating) {
