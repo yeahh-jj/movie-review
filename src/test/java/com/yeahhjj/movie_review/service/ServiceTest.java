@@ -29,4 +29,16 @@ public class ServiceTest {
         assertThat(service.getReviews().get(0).getMovieId()).isEqualTo(1);
         assertThat(service.getReviews().get(0).getRating()).isEqualTo(5.0);
     }
+
+    @Test
+    void 리뷰_평균_평점을_계산한다() {
+        Service service = new Service();
+
+        service.registerMovie("기생충", "3", "봉준호");
+        service.registerReview("1", "5.0", "재밌게 봤습니다!");
+        service.registerReview("1", "4.5", "Good!");
+
+        assertThat(service.findReviewsByMovieId(1)).hasSize(2);
+        assertThat(service.averageRating(1)).isEqualTo(4.75);
+    }
 }
