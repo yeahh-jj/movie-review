@@ -9,6 +9,7 @@ import com.yeahhjj.movie_review.util.ReviewParser;
 import com.yeahhjj.movie_review.util.ReviewValidator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Service {
     private final List<Movie> movies = new ArrayList<>();
@@ -36,5 +37,20 @@ public class Service {
 
     public List<Review> getReviews() {
         return reviews;
+    }
+
+    public List<Review> findReviewsByMovieId(int movieId) {
+        return reviews.stream()
+                .filter(review -> review.getMovieId() == movieId)
+                .collect(Collectors.toList());
+    }
+
+    public double averageRating(int movieId) {
+        List<Review> reviewsForMovie = findReviewsByMovieId(movieId);
+
+        return reviewsForMovie.stream()
+                .mapToDouble(Review::getRating)
+                .average()
+                .orElse(0.0);
     }
 }
