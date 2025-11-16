@@ -3,8 +3,6 @@ package com.yeahhjj.movie_review.service;
 import com.yeahhjj.movie_review.domain.Genre;
 import com.yeahhjj.movie_review.domain.Movie;
 import com.yeahhjj.movie_review.domain.Review;
-import com.yeahhjj.movie_review.util.MovieParser;
-import com.yeahhjj.movie_review.util.MovieValidator;
 import com.yeahhjj.movie_review.util.ReviewParser;
 import com.yeahhjj.movie_review.util.ReviewValidator;
 import java.util.ArrayList;
@@ -17,12 +15,8 @@ public class Service {
 
     private int movieId = 1;
 
-    public void registerMovie(String title, String genreId, String director) {
-        MovieValidator.validateTitle(title, movies);
-        int genre = MovieValidator.validateGenreId(genreId);
-        MovieParser.isBlankDirector(director);
-
-        movies.add(new Movie(movieId++, title, Genre.getGenre(genre), director));
+    public void registerMovie(String title, int genreId, String director) {
+        movies.add(new Movie(movieId++, title, Genre.getGenre(genreId), director));
     }
 
     public List<Movie> getMovies() {

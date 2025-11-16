@@ -11,8 +11,8 @@ public class ReviewValidatorTest {
     @Test
     void 존재하지_않는_영화ID를_입력할_경우_예외가_발생한다() {
         Service service = new Service();
-        service.registerMovie("기생충", "3", "봉준호");
-        service.registerMovie("미션임파서블", "1", "브라이언 드 팔마");
+        service.registerMovie("기생충", 3, "봉준호");
+        service.registerMovie("미션임파서블", 1, "브라이언 드 팔마");
 
         assertThatThrownBy(() -> ReviewValidator.validateMovieId("3", service.getMovies()))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -21,8 +21,8 @@ public class ReviewValidatorTest {
     @Test
     void 영화ID에_맞는_영화가_도출된다() {
         Service service = new Service();
-        service.registerMovie("기생충", "3", "봉준호");
-        service.registerMovie("미션임파서블", "1", "브라이언 드 팔마");
+        service.registerMovie("기생충", 3, "봉준호");
+        service.registerMovie("미션임파서블", 1, "브라이언 드 팔마");
 
         int movieId = ReviewValidator.validateMovieId("2", service.getMovies());
 
