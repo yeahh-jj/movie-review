@@ -24,7 +24,6 @@ public class Controller {
     public void run() {
         MenuOutputView.printMainMenu();
         String menu = MenuInputView.inputMenuNum().trim();
-
     }
 
     private void registerMovie() {
@@ -52,10 +51,9 @@ public class Controller {
     }
 
     private void showReviews() {
-
+        ReviewOutputView.printReviews(service);
     }
 
     private void exitProgram() {
-
     }
 }
