@@ -24,9 +24,9 @@ public class ReviewValidatorTest {
         service.registerMovie("기생충", "3", "봉준호");
         service.registerMovie("미션임파서블", "1", "브라이언 드 팔마");
 
-        int movieId = ReviewValidator.validateMovieId("1", service.getMovies());
+        int movieId = ReviewValidator.validateMovieId("2", service.getMovies());
 
-        assertThat(movieId).isEqualTo(1);
+        assertThat(movieId).isEqualTo(2);
     }
 
     @Test

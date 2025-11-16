@@ -15,12 +15,14 @@ public class Service {
     private final List<Movie> movies = new ArrayList<>();
     private final List<Review> reviews = new ArrayList<>();
 
+    private int movieId = 1;
+
     public void registerMovie(String title, String genreId, String director) {
         MovieValidator.validateTitle(title, movies);
         int genre = MovieValidator.validateGenreId(genreId);
         MovieParser.isBlankDirector(director);
 
-        movies.add(new Movie(title, Genre.getGenre(genre), director));
+        movies.add(new Movie(movieId++, title, Genre.getGenre(genre), director));
     }
 
     public List<Movie> getMovies() {

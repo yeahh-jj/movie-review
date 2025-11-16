@@ -8,13 +8,13 @@ public class ReviewValidator {
     private final static double MAX = 5.0;
 
     public static int validateMovieId(String movieId, List<Movie> movies) {
-        int index = ReviewParser.checkMovieId(movieId) - 1;
+        int inputMovieId = ReviewParser.checkMovieId(movieId);
 
-        if (index < 0 || index >= movies.size()) {
-            throw new IllegalArgumentException("[ERROR] 해당 ID의 영화가 존재하지 않습니다.");
-        }
-
-        return ReviewParser.checkMovieId(movieId);
+        return movies.stream()
+                .filter(m -> m.getId() == inputMovieId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 해당 ID의 영화가 존재하지 않습니다."))
+                .getId();
     }
 
     public static double validateRating(String rating) {

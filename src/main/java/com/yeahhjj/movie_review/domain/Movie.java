@@ -1,14 +1,20 @@
 package com.yeahhjj.movie_review.domain;
 
 public class Movie {
+    private final int id;
     private final String title;
     private final Genre genre;
     private final String director;
 
-    public Movie(String title, Genre genre, String director) {
+    public Movie(int id, String title, Genre genre, String director) {
+        this.id = id;
         this.title = title;
         this.genre = genre;
         this.director = director;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

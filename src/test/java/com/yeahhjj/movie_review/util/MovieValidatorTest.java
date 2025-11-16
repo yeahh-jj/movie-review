@@ -11,9 +11,9 @@ public class MovieValidatorTest {
     @Test
     void 이미_등록된_영화_제목_입력_시_예외가_발생한다() {
         List<Movie> movies = List.of(
-                new Movie("기생충", Genre.DRAMA, "봉준호"),
-                new Movie("인터스텔라", Genre.SF, "크리스토퍼 놀란"),
-                new Movie("미션 임파서블", Genre.ACTION, "브라이언 드 팔마")
+                new Movie(1,"기생충", Genre.DRAMA, "봉준호"),
+                new Movie(2,"인터스텔라", Genre.SF, "크리스토퍼 놀란"),
+                new Movie(3,"미션 임파서블", Genre.ACTION, "브라이언 드 팔마")
         );
         assertThatThrownBy(() -> MovieValidator.validateTitle("기생충", movies))
                 .isInstanceOf(IllegalArgumentException.class)
