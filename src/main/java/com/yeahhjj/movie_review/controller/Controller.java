@@ -3,6 +3,8 @@ package com.yeahhjj.movie_review.controller;
 import com.yeahhjj.movie_review.service.Service;
 import com.yeahhjj.movie_review.util.MovieParser;
 import com.yeahhjj.movie_review.util.MovieValidator;
+import com.yeahhjj.movie_review.util.ReviewParser;
+import com.yeahhjj.movie_review.util.ReviewValidator;
 import com.yeahhjj.movie_review.view.MenuInputView;
 import com.yeahhjj.movie_review.view.MenuOutputView;
 import com.yeahhjj.movie_review.view.MovieInputView;
@@ -72,7 +74,7 @@ public class Controller {
         while (true) {
             String genre = MovieInputView.inputGenreId();
             try {
-                genreId  = MovieValidator.validateGenreId(genre);
+                genreId = MovieValidator.validateGenreId(genre);
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -88,20 +90,44 @@ public class Controller {
     private void registerReview() {
         ReviewOutputView.printRegisterReviewHeader();
 
+        int id;
+        double rating;
+        String content;
+
         while (true) {
+            String inputId = ReviewInputView.inputMovieId(service.getMovies());
             try {
-                String movieId = ReviewInputView.inputMovieId(service.getMovies());
-                String ratingValue = ReviewInputView.inputRating();
-                String content = ReviewInputView.inputContent();
-
-                service.registerReview(movieId, ratingValue, content);
-
-                ReviewOutputView.printReviewRegistrationSuccess();
+                id = ReviewValidator.validateMovieId(inputId, service.getMovies());
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
+
+        while (true) {
+            String inputRating = ReviewInputView.inputRating();
+            try {
+                rating = ReviewValidator.validateRating(inputRating);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        while (true) {
+            content = ReviewInputView.inputContent();
+            try {
+                ReviewParser.isBlankContent(content);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        service.registerReview(id, rating, content);
+
+        ReviewOutputView.printReviewRegistrationSuccess();
+
     }
 
     private void showReviews() {

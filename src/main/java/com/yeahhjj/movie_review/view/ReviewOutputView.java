@@ -27,11 +27,11 @@ public class ReviewOutputView {
     public static void printReviews(Service service) {
         for (Movie movie : service.getMovies()) {
             System.out.println("[" + movie.getId() + "] " + movie.getTitle() +
-                    "(감독: " + movie.getDirector() +
+                    " (감독: " + movie.getDirector() +
                     " | 장르: " + movie.getGenre().getDisplayName() + ")");
 
             double avgRating = service.averageRating(movie.getId());
-            System.out.println("   평균 평점: %.1f%n" + avgRating);
+            System.out.println("    평균 평점: " + avgRating);
 
             printMovieReviews(movie.getId(), service.getReviews());
 

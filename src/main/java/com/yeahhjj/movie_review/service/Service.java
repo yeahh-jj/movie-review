@@ -23,11 +23,7 @@ public class Service {
         return movies;
     }
 
-    public void registerReview(String id, String ratingValue, String content) {
-        int movieId = ReviewValidator.validateMovieId(id, movies);
-        double rating = ReviewValidator.validateRating(ratingValue);
-        ReviewParser.isBlankContent(content);
-
+    public void registerReview(int id, double rating, String content) {
         reviews.add(new Review(movieId, rating, content));
     }
 
