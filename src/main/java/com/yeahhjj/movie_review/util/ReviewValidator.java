@@ -19,9 +19,6 @@ public class ReviewValidator {
 
     public static double validateRating(String rating) {
         double reviewRating = ReviewParser.checkRating(rating);
-
-        System.out.println("[DEBUG] reviewRating = " + reviewRating);
-
         rangeOfRating(reviewRating);
         halfRating(reviewRating);
         return reviewRating;
