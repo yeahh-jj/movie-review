@@ -3,8 +3,6 @@ package com.yeahhjj.movie_review.service;
 import com.yeahhjj.movie_review.domain.Genre;
 import com.yeahhjj.movie_review.domain.Movie;
 import com.yeahhjj.movie_review.domain.Review;
-import com.yeahhjj.movie_review.util.ReviewParser;
-import com.yeahhjj.movie_review.util.ReviewValidator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +22,7 @@ public class Service {
     }
 
     public void registerReview(int id, double rating, String content) {
-        reviews.add(new Review(movieId, rating, content));
+        reviews.add(new Review(id, rating, content));
     }
 
     public List<Review> getReviews() {
