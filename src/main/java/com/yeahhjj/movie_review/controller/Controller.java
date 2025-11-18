@@ -13,6 +13,8 @@ import com.yeahhjj.movie_review.view.ReviewInputView;
 import com.yeahhjj.movie_review.view.ReviewOutputView;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class Controller {
     private final Service service = new Service();
@@ -47,39 +49,26 @@ public class Controller {
     private void registerMovie() {
         MovieOutputView.printRegisterMovieHeader();
 
-        String title;
-        String director;
-        int genreId;
+        String title = getValidatedInput(
+                MovieInputView::inputTitle,
+                t -> {
+                    MovieValidator.validateTitle(t, service.getMovies());
+                    return t;
+                }
+        );
 
-        while (true) {
-            title = MovieInputView.inputTitle();
-            try {
-                MovieValidator.validateTitle(title, service.getMovies());
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        String director = getValidatedInput(
+                MovieInputView::inputDirector,
+                d -> {
+                    MovieParser.isBlankDirector(d);
+                    return d;
+                }
+        );
 
-        while (true) {
-            director = MovieInputView.inputDirector();
-            try {
-                MovieParser.isBlankDirector(director);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        while (true) {
-            String genre = MovieInputView.inputGenreId();
-            try {
-                genreId = MovieValidator.validateGenreId(genre);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        int genreId = getValidatedInput(
+                MovieInputView::inputGenreId,
+                g -> MovieValidator.validateGenreId(g)
+        );
 
         service.registerMovie(title, genreId, director);
 
@@ -90,44 +79,39 @@ public class Controller {
     private void registerReview() {
         ReviewOutputView.printRegisterReviewHeader();
 
-        int id;
-        double rating;
-        String content;
+        int id = getValidatedInput(
+                () -> ReviewInputView.inputMovieId(service.getMovies()),
+                idStr -> ReviewValidator.validateMovieId(idStr, service.getMovies())
+        );
 
-        while (true) {
-            String inputId = ReviewInputView.inputMovieId(service.getMovies());
-            try {
-                id = ReviewValidator.validateMovieId(inputId, service.getMovies());
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        double rating = getValidatedInput(
+                ReviewInputView::inputRating,
+                r -> ReviewValidator.validateRating(r)
+        );
 
-        while (true) {
-            String inputRating = ReviewInputView.inputRating();
-            try {
-                rating = ReviewValidator.validateRating(inputRating);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        while (true) {
-            content = ReviewInputView.inputContent();
-            try {
-                ReviewParser.isBlankContent(content);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        String content = getValidatedInput(
+                ReviewInputView::inputContent,
+                c -> {
+                    ReviewParser.isBlankContent(c);
+                    return c;
+                }
+        );
 
         service.registerReview(id, rating, content);
 
         ReviewOutputView.printReviewRegistrationSuccess();
 
+    }
+
+    private <T, R> R getValidatedInput(Supplier<T> inputSupplier, Function<T, R> validator) {
+        while (true) {
+            T input = inputSupplier.get();
+            try {
+                return validator.apply(input);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     private void showReviews() {
